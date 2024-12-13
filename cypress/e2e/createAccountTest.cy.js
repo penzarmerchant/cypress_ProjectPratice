@@ -5,9 +5,13 @@ import homePage from './pages/homePage';
 import accountInfoPage from './pages/accountInfoPage';
 
 describe('Create Account Test', function () {
-    beforeEach(function () {
-        cy.fixture('espoCRMAccounts').as('AccountData')
 
+    before(function () {
+        cy.task('generateMockDataTask');
+    })
+
+    beforeEach(function () {
+        cy.fixture('espoCRMAccounts').as('AccountData');
     })
 
     it('Account Creation', function () {
@@ -16,6 +20,10 @@ describe('Create Account Test', function () {
         homePage.clickAccountButton()
             .clickCreateAccountButton()
             .completeCreateAccountCreation(this.AccountData.accountdetails);
-        accountInfoPage.getAccountTitleText();
+
+        accountInfoPage.getAccountTitleText().should(
+            (accountTitleText) => {
+                expect(accountTitleText).to.equal(this.AccountData.accountdetails[0]);
+            })
     })
 })
