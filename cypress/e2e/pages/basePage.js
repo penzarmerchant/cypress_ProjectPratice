@@ -17,6 +17,10 @@ class BasePage {
         this.#waitForElement(locator, typeOfLocator).click();
     }
 
+    b_clickElementWithForce(locator, typeOfLocator = BasePage.LocatorTypes.CSS) {
+        this.#waitForElement(locator, typeOfLocator).click({force:true});
+    }
+
     // Method to fill the textbox
     b_fillText(locator, textToEnter, typeOfLocator = BasePage.LocatorTypes.CSS) {
         this.#waitForElement(locator, typeOfLocator).type(textToEnter);
@@ -42,6 +46,10 @@ class BasePage {
      b_selectDynamicDropDown(dropdownLocator,dropDownText,typeOfLocator=BasePage.LocatorTypes.CSS){
         this.b_clickElement(dropdownLocator,typeOfLocator);
         this.b_clickElement(dropDownText,BasePage.LocatorTypes.TEXT);
+      }
+
+      b_uploadContent(locator,path){
+        cy.get(locator).selectFile(path);
       }
 
     #getlocator(locator, typeOfLocator = BasePage.LocatorTypes.CSS) {

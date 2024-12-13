@@ -8,12 +8,13 @@
 // https://on.cypress.io/custom-commands
 // ***********************************************
 //
- import loginPage from '../e2e/pages/loginPage'
+import loginPage from '../e2e/pages/loginPage'
 // -- This is a parent command --
- Cypress.Commands.add('login', () => { 
-    cy.visit('/');
-    loginPage.clickLogin();
-  })
+Cypress.Commands.add('login', () => {
+  cy.visit('/');
+  loginPage.clickLogin();
+})
+
 //
 //
 // -- This is a child command --

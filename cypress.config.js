@@ -1,5 +1,6 @@
 const { defineConfig } = require("Cypress");
-const { generateMockData } = require('./cypress/e2e/helpers/utils');
+const { generateMockData,generateContactMockData } = require('./cypress/e2e/helpers/utils');
+
 
 module.exports = defineConfig({
   e2e: {
@@ -7,6 +8,12 @@ module.exports = defineConfig({
       on('task', {
         generateMockDataTask() {
           generateMockData();
+          return null;
+        }
+      }),
+      on('task', {
+        generateContactsMockDataTask() {
+          generateContactMockData();
           return null;
         }
       })
