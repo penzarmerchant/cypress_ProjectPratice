@@ -23,7 +23,7 @@ class CreateContactPage extends BasePage {
         this.teams = '(//div[@data-name="teams"])[2]';
         this.teamsList = (teamsOption) => `//div[@class="autocomplete-suggestion autocomplete-selected" and text()="${teamsOption}"]`;
         this.photoUpload = 'label[title="Attach File"]';
-        this.accountSearchResultNameText = '(//td[@data-name="name"])[6]';
+        this.accountSearchResultNameText = '(//td[@data-name="name"]//a)[1]';
         this.searchBarTextBox = 'input[data-name="textFilter"]';
         this.searchIcon = 'button[data-action="search"]';
         this.saveButton = 'button[data-name="save"]';
@@ -86,10 +86,11 @@ class CreateContactPage extends BasePage {
 
     selectAccount() {
         this.b_clickElementWithForce(this.accountsDropdown);
-        const searchNameText = this.b_getText(this.accountSearchResultNameText, BasePage.LocatorTypes.XPATH);
-        this.b_fillText(this.searchBarTextBox, 'AFP Supply');
+        this.b_getText(this.accountSearchResultNameText, BasePage.LocatorTypes.XPATH).then(
+            (accountText) => {
+                this.b_fillText(this.searchBarTextBox, accountText)
+            })
         this.b_clickElement(this.searchIcon);
-        cy.wait(3000)
         this.b_clickElement(this.firstSearchAccountResult, BasePage.LocatorTypes.XPATH);
         return this;
     }
