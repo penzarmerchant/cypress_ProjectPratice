@@ -52,6 +52,12 @@ class BasePage {
         cy.get(locator).selectFile(path);
       }
 
+      b_getLocatorCount(locator){
+        return cy.get(locator).then((element)=>{
+                return element.length;
+        })
+      }
+
     #getlocator(locator, typeOfLocator = BasePage.LocatorTypes.CSS) {
         switch (typeOfLocator) {
             case BasePage.LocatorTypes.XPATH:
