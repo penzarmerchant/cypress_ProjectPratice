@@ -4,10 +4,12 @@ import loginPage from './pages/loginPage';
 import homePage from './pages/homePage';
 import accountInfoPage from './pages/accountInfoPage';
 import accountPage from './pages/accountPage';
+import createAccountPage from './pages/createAccountPage';
 
 describe('Create Account Test', function () {
 
     var accountName;
+    const errorMessage='Not valid';
     before(function () {
         cy.task('generateMockDataTask');
     })
@@ -22,9 +24,7 @@ describe('Create Account Test', function () {
         homePage.clickAccountButton()
             .clickCreateAccountButton()
             .completeCreateAccountCreation(this.AccountData.accountdetails);
-
         accountName = this.AccountData.accountdetails[0];
-
         accountInfoPage.getAccountTitleText().should('equal',accountName);  
     })
 
@@ -34,11 +34,19 @@ describe('Create Account Test', function () {
         homePage.clickAccountButton()
             .enterSearchTextBox(accountName)
             .clickSearchIcon()
-
-
         accountPage.getSearchResultAccountText().should('equal', accountName)
-
         accountPage.getSearchRowCount().should('equal', 1)
+    })
+
+    it.only('Check Mandatory Fields', function () {
+        cy.visit('/');
+        loginPage.clickLogin();
+        homePage.clickAccountButton()
+            .clickCreateAccountButton()
+            .clickSaveButton()
+
+       createAccountPage.getErrorMessageText().should('equal',errorMessage);
 
     })
+
 })

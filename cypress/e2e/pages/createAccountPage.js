@@ -24,6 +24,7 @@ class CreateAccountPage extends BasePage{
         this.teams='(//div[@data-name="teams"])[2]';
         this.teamsList=(teamsOption)=>`//div[@class="autocomplete-suggestion autocomplete-selected" and text()="${teamsOption}"]`;
         this.saveButton='button[data-name="save"]';
+        this.errorMessage='#notification';
     }
 
     enterName(nameTextToEnter){
@@ -101,6 +102,10 @@ class CreateAccountPage extends BasePage{
         this.b_clickElement(this.teams,BasePage.LocatorTypes.XPATH);
         this.b_clickElement(this.teamsList(teamsNameText),BasePage.LocatorTypes.XPATH);
         return this;
+    }
+
+    getErrorMessageText(){
+       return this.b_getText(this.errorMessage);
     }
 
     clickSaveButton(){
