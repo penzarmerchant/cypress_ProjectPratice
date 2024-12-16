@@ -91,6 +91,7 @@ class CreateContactPage extends BasePage {
                 this.b_fillText(this.searchBarTextBox, accountText)
             })
         this.b_clickElement(this.searchIcon);
+        cy.wait(3000);
         this.b_clickElement(this.firstSearchAccountResult, BasePage.LocatorTypes.XPATH);
         return this;
     }
@@ -109,7 +110,7 @@ class CreateContactPage extends BasePage {
 
     uploadUserImage(path) {
         this.b_uploadContent(this.photoUpload, path);
-        cy.wait(5000)
+        cy.wait(5000);
         return this;
     }
 
