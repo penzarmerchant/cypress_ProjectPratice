@@ -38,7 +38,7 @@ describe('Create Account Test', function () {
         accountPage.getSearchRowCount().should('equal', 1)
     })
 
-    it.only('Check Mandatory Fields', function () {
+    it('Check Mandatory Fields', function () {
         cy.visit('/');
         loginPage.clickLogin();
         homePage.clickAccountButton()
