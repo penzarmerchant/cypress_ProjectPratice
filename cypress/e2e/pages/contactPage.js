@@ -6,13 +6,35 @@ import createContactPage from "./createContactPage";
 class ContactPage extends BasePage{
     constructor(){
         super();
-        this.createContactButton='a[data-name="create"]'
+        this.createContactButton='a[data-name="create"]';
+        this.searchTextBox='input[data-name="textFilter"]';
+        this.searchIcon='button[title="Search"]';
+        this.searchResultRow='.table tbody tr';
+        this.searchResultAccountText='.table tbody tr td[data-name="name"] a';
     }
 
     clickCreateContactButton(){
         this.b_clickElement(this.createContactButton);
         return createContactPage;
     }
+
+    getSearchRowCount(){
+        return this.b_getLocatorCount(this.searchResultRow);
+     }
+ 
+     getSearchResultAccountText(){
+        return this.b_getText(this.searchResultAccountText);
+     }
+ 
+     enterSearchTextBox(searchText){
+         this.b_fillText(this.searchTextBox,searchText);
+         return this;
+     }
+ 
+     clickSearchIcon(){
+         this.b_clickElement(this.searchIcon);
+         return this;
+     }
 }
 
 export default new ContactPage()

@@ -3,8 +3,9 @@
 import loginPage from './pages/loginPage';
 import homePage from './pages/homePage';
 import contactInfoPage from './pages/contactInfoPage';
+import contactPage from './pages/contactPage';
 
-
+var contactName;
 describe('Create Contact Test', function () {
 
     before(function () {
@@ -22,9 +23,24 @@ describe('Create Contact Test', function () {
             .clickCreateContactButton()
             .createCompleteContact(this.ContactData.contactdetails);
 
-        contactInfoPage.getContactTitleText().should(
-            (contactTitleText) => {
-                expect(contactTitleText).to.equal(this.ContactData.contactdetails[1]+" " + this.ContactData.contactdetails[2]);
-            })
+        contactName = this.ContactData.contactdetails[1] + " " + this.ContactData.contactdetails[2];
+
+        contactInfoPage.getContactTitleText().should('equal', contactName);
+        contactInfoPage.getContactTitleText().should('equal',contactName);
     })
+
+    it('Contact Search', function () {
+            cy.visit('/');
+            loginPage.clickLogin();
+            homePage.clickContactButton()
+                .enterSearchTextBox(contactName)
+                .clickSearchIcon()
+    
+    
+            contactPage.getSearchResultAccountText().should('equal', contactName)
+    
+            contactPage.getSearchRowCount().should('equal', 1)
+    
+        })
+
 })
