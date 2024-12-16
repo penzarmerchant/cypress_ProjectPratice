@@ -27,6 +27,7 @@ class CreateContactPage extends BasePage {
         this.searchBarTextBox = 'input[data-name="textFilter"]';
         this.searchIcon = 'button[data-action="search"]';
         this.saveButton = 'button[data-name="save"]';
+        this.errorMessage='#notification';
     }
 
     selectSalutationValue(salutationText) {
@@ -117,6 +118,10 @@ class CreateContactPage extends BasePage {
     clickSaveButton() {
         this.b_clickElement(this.saveButton);
         return contactInfoPage;
+    }
+
+    getErrorMessageText(){
+        return this.b_getText(this.errorMessage);
     }
 
     createCompleteContact(contactDetailsArray) {
