@@ -23,31 +23,22 @@ describe('Create Account Test', function () {
             .clickCreateAccountButton()
             .completeCreateAccountCreation(this.AccountData.accountdetails);
 
-            accountName=this.AccountData.accountdetails[0];
+        accountName = this.AccountData.accountdetails[0];
 
-        accountInfoPage.getAccountTitleText().should(
-            (accountTitleText) => {
-                expect(accountTitleText).to.equal(accountName);
-            })
+        accountInfoPage.getAccountTitleText().should('equal',accountName);  
     })
 
-    it('Account Search',function(){
+    it('Account Search', function () {
         cy.visit('/');
         loginPage.clickLogin();
         homePage.clickAccountButton()
-        .enterSearchTextBox(accountName)
-        .clickSearchIcon()
+            .enterSearchTextBox(accountName)
+            .clickSearchIcon()
 
-       
-        accountPage.getSearchResultAccountText().then(
-            (accountTitleText) => {
-                expect(accountTitleText).to.equal(accountName);    
-            })
 
-            accountPage.getSearchRowCount().then(
-                (rowCount) => {
-                    expect(rowCount).to.equal(1);    
-                })
+        accountPage.getSearchResultAccountText().should('equal', accountName)
+
+        accountPage.getSearchRowCount().should('equal', 1)
 
     })
 })
